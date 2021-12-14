@@ -15,6 +15,3 @@ RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install --no-cache -r requirements.txt
 
-COPY ./code /opt/program
-ENTRYPOINT ["python3", "/opt/program/serve.py"]
-
