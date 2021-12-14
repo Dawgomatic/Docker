@@ -8,7 +8,13 @@ RUN sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
 RUN sudo apt-get update \
  && sudo apt-get install -y libgl1-mesa-glx libgtk2.0-0 libsm6 libxext6 \
  && sudo rm -rf /var/lib/apt/lists/*
+ && sudo apt-get clean
+ 
+RUN pip install --upgrade pip
 
-# Install OpenCV from PyPI.
-RUN pip install opencv-python==4.5.1.48
-1
+COPY requirements.txt .
+RUN pip install --no-cache -r requirements.txt
+
+COPY ./code /opt/program
+ENTRYPOINT ["python3", "/opt/program/serve.py"]
+
